@@ -1,5 +1,9 @@
 # encoding: utf-8
 
+lib = File.expand_path('../lib/', __FILE__)
+$:.unshift lib unless $:.include?(lib)
+require "loaderio-cli/version"
+
 require 'rubygems'
 require 'bundler'
 begin
@@ -17,11 +21,15 @@ Jeweler::Tasks.new do |gem|
   gem.name = "loaderio-cli"
   gem.homepage = "http://github.com/lukaszsliwa/loaderio-cli"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
-  gem.email = "lukasz.sliwa@gmail.com"
+  gem.summary = %Q{Loader.io CLI}
+  gem.description = %Q{Loader.io is a service which provides possibility to test your application against 50k concurrent connections. This gem makes you easy to manage your tests by console.}
+  gem.email = "lukasz.sliwa@apptamers.com"
   gem.authors = ["Łukasz Śliwa"]
+  gem.executables = %w{loaderio loaderiocli loaderio-cli}
   # dependencies defined in Gemfile
+  gem.version = LoaderioCLI::VERSION
+  gem.require_paths = ["lib"]
+  gem.files = Dir.glob("{bin,lib}/**/*") + %w(LICENSE README.rdoc)
 end
 Jeweler::RubygemsDotOrgTasks.new
 
@@ -40,7 +48,7 @@ task :default => :spec
 
 require 'rdoc/task'
 Rake::RDocTask.new do |rdoc|
-  version = File.exist?('VERSION') ? File.read('VERSION') : ""
+  version = LoaderioCLI::VERSION
 
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title = "loaderio-cli #{version}"
